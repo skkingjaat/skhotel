@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grandeur - 5-Star Luxury Hotel & Resort</title>
+    <meta name="description"
+        content="Experience the pinnacle of luxury at The Grandeur, a 5-star resort. Discover exclusive suites, fine dining, world-class spa, and bespoke service. Book your unforgettable stay now.">
+    <meta name="keywords"
+        content="Luxury Hotel, 5-Star Resort, Suites, Spa, Fine Dining, The Grandeur, Book Hotel, Best Hotel, Luxury Stay">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="The Grandeur - 5-Star Luxury Hotel & Resort">
+    <meta property="og:description"
+        content="Discover exclusive suites, fine dining, world-class spa, and bespoke service at The Grandeur. Book your unforgettable stay now.">
+    <meta property="og:image" content="https://placehold.co/1200x630/1c1917/ffffff?text=The+Grandeur+Hotel">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Grandeur - 5-Star Luxury Hotel & Resort">
+    <meta name="twitter:description"
+        content="Discover exclusive suites, fine dining, world-class spa, and bespoke service at The Grandeur. Book your unforgettable stay now.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/1c1917/ffffff?text=The+Grandeur+Hotel">
+    <link rel="canonical" href="https://yourdomain.com/">
+    <link rel="icon" href="https://placehold.co/32x32/1c1917/ffffff?text=TG" type="image/x-icon">
+     <link href="./output.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1c1917;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .scroll-to-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #1c1917;
+            color: white;
+            padding: 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+        }
+
+        .scroll-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu {
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .mobile-menu.show {
+            max-height: 500px;
+        }
+
+        img,
+        svg {
+            max-width: 100%;
+            display: block;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body class="bg-stone-50 text-stone-900">
+
+    <!-- Header Section -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm py-4">
+        <nav class="container mx-auto px-4 md:px-8">
+            <div class="flex items-center justify-between">
+                <a href="#home" class="text-2xl md:text-3xl font-bold text-stone-900 logo">The Grandeur</a>
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="#home" class="nav-link text-stone-600 hover:text-stone-900 transition-colors">Home</a>
+                    <a href="#about" class="nav-link text-stone-600 hover:text-stone-900 transition-colors">About</a>
+                    <a href="#suites" class="nav-link text-stone-600 hover:text-stone-900 transition-colors">Suites</a>
+                    
+                    <a href="#contact"
+                        class="nav-link text-stone-600 hover:text-stone-900 transition-colors">Contact</a>
+                    <a href="#booking"
+                        class="nav-link bg-stone-900 hover:bg-stone-700 text-white font-semibold py-2 px-4 md:px-6 rounded-full transition-colors duration-300">Book
+                        Now</a>
+                </div>
+                <button id="menu-button" class="md:hidden text-stone-600 hover:text-stone-900 transition-colors">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu"
+                class="mobile-menu md:hidden space-y-2 text-center border-t border-stone-200">
+                <a href="#home"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Home</a>
+                <a href="#about"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">About</a>
+                <a href="#suites"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Suites</a>
+                <a href="#amenities"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Amenities</a>
+                <a href="#dining"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Dining</a>
+                <a href="#gallery"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Gallery</a>
+                <a href="#reviews"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Reviews</a>
+                <a href="#contact"
+                    class="nav-link block text-stone-600 hover:text-stone-900 transition-colors py-2">Contact</a>
+                <a href="#booking"
+                    class="nav-link block bg-stone-900 hover:bg-stone-700 text-white font-semibold py-2 px-6 rounded-full transition-colors">Book
+                    Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mt-16">
+        <!-- Home Section -->
+        <section id="home" class="page-section">
+            <div class="relative min-h-screen flex items-center justify-center text-center">
+                <div class="absolute inset-0 bg-cover bg-center"
+                    style="background-image: url('https://i.pinimg.com/1200x/4a/95/0f/4a950f8e077b08e9e510f772cef35662.jpg');">
+                </div>
+                <div class="absolute inset-0 bg-black/50"></div>
+                <div class="relative z-10 text-white px-4 md:px-8">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tighter mb-4 animate-fade-in-down">
+                        Discover Unparalleled Grandeur
+                    </h1>
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 animate-fade-in-up">
+                        An experience crafted for the discerning traveler.
+                    </p>
+                    <a href="#booking"
+                        class="bg-white hover:bg-stone-200 text-stone-900 font-semibold py-3 px-8 md:px-10 rounded-full transition-colors duration-300 transform hover:scale-105 inline-block shadow-lg">
+                        Book Your Stay
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- About Us Section -->
+        <section id="about" class="page-section py-16 md:py-24">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Our Story of Excellence
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+                    <div class="relative h-fit">
+                        <img src="https://i.pinimg.com/736x/90/7d/99/907d99074acbd9d80e19a2450c3c787e.jpg"
+                            alt="The Grandeur hotel building exterior with elegant design"
+                            class="rounded-xl shadow-2xl relative w-full h-fit transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div>
+                        <p class="text-stone-600 mb-4 md:mb-6 leading-relaxed text-base md:text-lg">
+                            Since its inception, The Grandeur has been a beacon of unparalleled luxury and refined
+                            hospitality.
+                            We are dedicated to providing our guests with a bespoke experience, blending impeccable service
+                            with
+                            a tranquil and magnificent setting. Every detail is curated to ensure your stay is a journey of
+                            perfection.
+                        </p>
+                        <p class="text-stone-600 leading-relaxed text-base md:text-lg">
+                            Our commitment to excellence is reflected in our award-winning service, breathtaking
+                            architecture,
+                            and a team that anticipates and caters to your every need. We invite you to step into a world
+                            where
+                            every moment is a celebration of refined living.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Suites Section -->
+        <section id="suites" class="page-section bg-stone-100 py-16 md:py-24">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Our Exquisite Suites
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105">
+                        <img src="https://i.pinimg.com/736x/39/98/e9/3998e995fcd061d0a0bff58e7869d96e.jpg"
+                            alt="A lavishly decorated luxury suite with a king-sized bed."
+                            class="w-full h-64 object-cover">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">The Executive Suite</h3>
+                            <p class="text-stone-600 mb-4 text-sm md:text-base">
+                                A spacious and elegantly appointed suite with stunning city views, designed for business
+                                and pleasure.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-stone-900 font-bold text-xl md:text-2xl">4,500 / night</span>
+                                <a href="#booking"
+                                    class="nav-link bg-stone-900 hover:bg-stone-700 text-white font-semibold py-2 px-6 md:py-3 md:px-8 rounded-full transition-colors text-sm md:text-base">
+                                    Book Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105">
+                        <img src="https://i.pinimg.com/1200x/b0/24/01/b0240106f54fd9303c3943685b067e4f.jpg"
+                            alt="The spacious living area of a presidential suite with plush furniture."
+                            class="w-full h-64 relative object-cover">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">The Presidential Suite</h3>
+                            <p class="text-stone-600 mb-4 text-sm md:text-base">
+                                The ultimate in luxury and space. Featuring a separate living area, private bar, and a
+                                personal butler.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-stone-900 font-bold text-xl md:text-2xl">10,500 / night</span>
+                                <a href="#booking"
+                                    class="nav-link bg-stone-900 hover:bg-stone-700 text-white font-semibold py-2 px-6 md:py-3 md:px-8 rounded-full transition-colors text-sm md:text-base">
+                                    Book Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105">
+                        <img src="https://i.pinimg.com/1200x/39/a4/22/39a422caf3bef3e08d59b0a069651eb5.jpg"
+                            alt="A private balcony with a breathtaking view of the ocean from a suite."
+                            class="w-full h-64 object-cover">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">The Royal Oceanview</h3>
+                            <p class="text-stone-600 mb-4 text-sm md:text-base">
+                                Wake up to breathtaking ocean views from your private balcony. A perfect blend of comfort
+                                and natural beauty.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-stone-900 font-bold text-xl md:text-2xl">75,000 / night</span>
+                                <a href="#booking"
+                                    class="nav-link bg-stone-900 hover:bg-stone-700 text-white font-semibold py-2 px-6 md:py-3 md:px-8 rounded-full transition-colors text-sm md:text-base">
+                                    Book Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Amenities Section -->
+        <section id="amenities" class="page-section py-16 md:py-24">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Signature Experiences
+                </h2>
+                <p class="text-center text-stone-600 max-w-3xl mx-auto mb-12 md:mb-16 text-base md:text-lg">
+                    Indulge in our carefully curated amenities and services designed to elevate your stay beyond the
+                    ordinary.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div
+                        class="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center transition-transform duration-500 hover:scale-105">
+                        <div class="text-stone-900 mb-4 inline-block p-4 bg-stone-200 rounded-full">
+                            <svg class="w-8 h-8 md:w-10 md:h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                <circle cx="12" cy="12" r="4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">The Serenity Spa</h3>
+                        <p class="text-stone-600 text-sm md:text-base">
+                            A sanctuary for the senses, offering bespoke treatments and rejuvenating therapies.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center transition-transform duration-500 hover:scale-105">
+                        <div class="text-stone-900 mb-4 inline-block p-4 bg-stone-200 rounded-full">
+                            <svg class="w-8 h-8 md:w-10 md:h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21 15v-2h-3V7.38c0-1.84-1.29-3.41-3.08-3.83L14 3h-4l-.92.55C7.29 4.97 6 6.54 6 8.38v5.62H3v2h18zm-7 0v-2h-4v2zm-2-4h4V8h-4v3z" />
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">Gastronomy</h3>
+                        <p class="text-stone-600 text-sm md:text-base">
+                            A culinary journey crafted by world-class chefs, featuring exclusive seasonal menus.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center transition-transform duration-500 hover:scale-105">
+                        <div class="text-stone-900 mb-4 inline-block p-4 bg-stone-200 rounded-full">
+                            <svg class="w-8 h-8 md:w-10 md:h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22 6.5V17c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h12.5l5.5 2.5zM16 17H4v-1h12V6.5l-2.5-1.1-1.5-.7L9 4.2 4 6.5V5h12v12z" />
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">Private Cinema</h3>
+                        <p class="text-stone-600 text-sm md:text-base">
+                            Enjoy an intimate cinematic experience in our plush, state-of-the-art private theater.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg p-6 md:p-8 text-center transition-transform duration-500 hover:scale-105">
+                        <div class="text-stone-900 mb-4 inline-block p-4 bg-stone-200 rounded-full">
+                            <svg class="w-8 h-8 md:w-10 md:h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                                <circle cx="12" cy="12" r="4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">Infinity Pool</h3>
+                        <p class="text-stone-600 text-sm md:text-base">
+                            An architectural marvel with panoramic views, perfect for a tranquil swim.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dining Section -->
+        <section id="dining" class="page-section bg-stone-50 py-16 md:py-24">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Culinary Delights
+                </h2>
+                <p class="text-center text-stone-600 max-w-3xl mx-auto mb-12 md:mb-16 text-base md:text-lg">
+                    Explore our exquisite on-site restaurants, each offering a unique journey for your palate.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105">
+                        <img src="https://i.pinimg.com/1200x/1b/7d/d2/1b7dd2832265592920812755c676f8d8.jpg"
+                            alt="A luxurious gourmet restaurant with sophisticated table settings"
+                            class="w-full h-64 object-cover">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">The Ember Room</h3>
+                            <p class="text-stone-600 mb-4 text-sm md:text-base">
+                                Indulge in modern European cuisine crafted with the finest local ingredients. An intimate
+                                setting for a special evening.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105">
+                        <img src="https://i.pinimg.com/1200x/fa/8e/10/fa8e102520ba7a404f0f159745d265c4.jpg"
+                            alt="A stylish rooftop bar with city skyline views" class="w-full h-64 object-cover">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">Celeste Sky Lounge</h3>
+                            <p class="text-stone-600 mb-4 text-sm md:text-base">
+                                Enjoy handcrafted cocktails and light fare with panoramic views of the city skyline. A
+                                perfect place to unwind.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-500 hover:scale-105">
+                        <img src="https://i.pinimg.com/1200x/71/59/1a/71591aa25af5e17c7a430f13dedba650.jpg"
+                            alt="A cozy, modern cafe lounge with plush seating" class="w-full h-64 object-cover">
+                        <div class="p-6 md:p-8">
+                            <h3 class="text-xl md:text-2xl font-semibold text-stone-900 mb-2">The Grand Cafe</h3>
+                            <p class="text-stone-600 mb-4 text-sm md:text-base">
+                                A casual yet elegant setting for your morning coffee, light lunch, or afternoon tea.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- Gallery  Section -->
+        <section id="gallery" class="page-section py-16 md:py-24 bg-stone-100">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Our Visual Journey
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <img src="https://i.pinimg.com/736x/b8/2c/ef/b82cef0054059db3963c4c6b81e20432.jpg"
+                        alt="An elegant exterior view of The Grandeur hotel"
+                        class="rounded-xl shadow-lg w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                    <img src="https://i.pinimg.com/1200x/27/14/e1/2714e11c59c31278ef22144728d9e23f.jpg"
+                        alt="The stylish and comfortable executive lounge"
+                        class="rounded-xl shadow-lg w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                    <img src="https://i.pinimg.com/736x/05/51/52/0551520412e5559630170152e5f2bd39.jpg"
+                        alt="A view of the fine dining restaurant with its exquisite decor"
+                        class="rounded-xl shadow-lg w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                    <img src="https://i.pinimg.com/736x/08/2d/21/082d21d993f6cc93021055306e590451.jpg"
+                        alt="The serene and beautiful outdoor swimming pool area"
+                        class="rounded-xl shadow-lg w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                    <img src="https://i.pinimg.com/1200x/54/4a/13/544a13bfe44fc158fd4871c412992bde.jpg"
+                        alt="The state-of-the-art private gym with modern equipment"
+                        class="rounded-xl shadow-lg w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                    <img src="https://i.pinimg.com/736x/86/d0/a0/86d0a01bde97145cba532dadb898d002.jpg"
+                        alt="A tranquil spa treatment room designed for relaxation"
+                        class="rounded-xl shadow-lg w-full h-72 object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+            </div>
+        </section>
+
+        <!-- Guest Reviews Section -->
+        <section id="reviews" class="page-section py-16 md:py-24">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    What Our Guests Say
+                </h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-stone-900">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl md:text-3xl">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="text-stone-600 italic mb-4 text-sm md:text-base">
+                            "An unforgettable stay! The service was impeccable, and the attention to detail was
+                            extraordinary.
+                            The room was pure elegance, and the views were breathtaking."
+                        </p>
+                        <p class="font-semibold text-stone-900 text-sm md:text-base">- Jane Doe, New York</p>
+                    </div>
+                    <!-- Review 2 -->
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-stone-900">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl md:text-3xl">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="text-stone-600 italic mb-4 text-sm md:text-base">
+                            "The culinary experience was beyond compare. Every meal was a masterpiece. This is more than a
+                            hotel;
+                            it's a destination in itself."
+                        </p>
+                        <p class="font-semibold text-stone-900 text-sm md:text-base">- John Smith, London</p>
+                    </div>
+                    <!-- Review 3 -->
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border-t-4 border-stone-900">
+                        <div class="flex items-center mb-4">
+                            <span class="text-2xl md:text-3xl">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="text-stone-600 italic mb-4 text-sm md:text-base">
+                            "From the moment we arrived, we were treated like royalty. The staff went above and beyond to
+                            ensure our
+                            comfort. A truly luxurious and serene experience."
+                        </p>
+                        <p class="font-semibold text-stone-900 text-sm md:text-base">- Maria Garcia, Paris</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="page-section py-16 md:py-24 bg-stone-100">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Get in Touch
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+                    <div>
+                        <p class="text-stone-600 mb-4 text-base md:text-lg">
+                            We are delighted to assist you with any inquiries. Please feel free to reach out to our team.
+                        </p>
+                        <p class="mb-2 text-stone-700 font-semibold text-base">Address:</p>
+                        <p class="text-stone-600 text-sm md:text-base"><a href="">123 Grandeur Boulevard, Luxury City, 54321</a></p>
+                        <p class="mt-4 mb-2 text-stone-700 font-semibold text-base">Phone:</p>
+                        <p class="text-stone-600 text-sm md:text-base"><a href="">+1 (800) 555-0123</a></p>
+                        <p class="mt-4 mb-2 text-stone-700 font-semibold text-base">Email:</p>
+                        <p class="text-stone-600 text-sm md:text-base"><a href="">contact@thegrandeur.com</a></p>
+                        <div class="mt-8 flex space-x-4">
+                            <a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14 13.5h2.5l1-4H14v-2c0-1.33 1.28-2 2-2h1.5V2.14s-1.2-.2-2.3-.2c-3.1 0-5.7 1.8-5.7 5.7V9.5H6.5v4H9V22h4.5v-8.5z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6 11h-4.2V8.8h-3.6v4.2H6v3.6h4.2V20h3.6v-4.2H18v-3.6z" />
+                                </svg>
+                            </a>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">
+                                <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.2 8.4c.04 1.4-1 2.6-2.4 2.6-1.4 0-2.6-1.2-2.6-2.6s1.2-2.6 2.6-2.6c1.4 0 2.4 1.2 2.4 2.6zM15 15h-6v-2h6v2z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://i.pinimg.com/736x/b8/2c/ef/b82cef0054059db3963c4c6b81e20432.jpg"
+                            alt="Image of the hotel exterior" class="rounded-xl shadow-lg w-full h-auto object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="page-section bg-stone-50 py-16 md:py-24">
+            <div class="container mx-auto px-4 md:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-900 mb-12">
+                    Book Your Unforgettable Stay
+                </h2>
+                <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl p-6 md:p-12">
+                    <form id="booking-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="check-in" class="block text-sm font-medium text-stone-700 mb-2">Check-in
+                                    Date</label>
+                                <input type="date" id="check-in" name="check-in"
+                                    class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="check-out" class="block text-sm font-medium text-stone-700 mb-2">Check-out
+                                    Date</label>
+                                <input type="date" id="check-out" name="check-out"
+                                    class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="adults"
+                                    class="block text-sm font-medium text-stone-700 mb-2">Adults</label>
+                                <input type="number" id="adults" name="adults" min="1"
+                                    class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                    required value="1">
+                            </div>
+                            <div>
+                                <label for="children"
+                                    class="block text-sm font-medium text-stone-700 mb-2">Children</label>
+                                <input type="number" id="children" name="children" min="0"
+                                    class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                    required value="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="room-type" class="block text-sm font-medium text-stone-700 mb-2">Room Type</label>
+                            <select id="room-type" name="room-type"
+                                class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                required>
+                                <option value="executive">Executive Suite</option>
+                                <option value="presidential">Presidential Suite</option>
+                                <option value="oceanview">Royal Oceanview</option>
+                            </select>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-stone-900 hover:bg-stone-700 text-white font-semibold py-3 md:py-4 px-6 rounded-full transition-colors duration-300 transform hover:-translate-y-1">
+                            Check Availability
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-stone-900 text-stone-300 py-8 md:py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-4">The Grandeur</h3>
+                    <p class="text-xs md:text-sm">Experience the pinnacle of luxury, where every detail is crafted for
+                        your perfection.</p>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#suites" class="hover:text-white transition-colors">Suites</a></li>
+                        <li><a href="#amenities" class="hover:text-white transition-colors">Amenities</a></li>
+                        <li><a href="#dining" class="hover:text-white transition-colors">Dining</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-white mb-4">More Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#gallery" class="hover:text-white transition-colors">Gallery</a></li>
+                        <li><a href="#reviews" class="hover:text-white transition-colors">Reviews</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#booking" class="hover:text-white transition-colors">Booking</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base md:text-lg font-semibold text-white mb-4">Contact</h3>
+                    <p class="text-sm"><a href="">123 Grandeur Boulevard Luxury City, 54321</a></p>
+                    <p class=" text-sm"><a href="">Phone: +1 (800) 555-0123</a></p>
+                    <p class="text-sm"><a href="">Email: contact@thegrandeur.com</a></p>
+                </div>
+            </div>
+            <div class="border-t border-stone-700 pt-6 md:pt-8 text-center md:flex md:justify-between md:items-center">
+                <p class="text-xs md:text-sm">&copy; 2024 The Grandeur. All Rights Reserved.</p>
+                <div class="flex justify-center md:justify-start space-x-4 mt-4 md:mt-0 text-sm">
+                    <a href="#" class="text-stone-300 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-stone-300 hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating status message box -->
+    <div id="status-message"
+        class="message-box rounded-full transition-transform duration-300" role="status" aria-live="polite"></div>
+
+    <button id="scroll-to-top" class="scroll-to-top-btn" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18">
+            </path>
+        </svg>
+    </button>
+
+    <script type="module" defer>
+        // Only run Firebase if config is present
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        let app, auth, db, userId = null;
+
+        // Lazy-load Firebase only if config is present
+        async function initFirebase() {
+            if (!firebaseConfig || Object.keys(firebaseConfig).length === 0) return;
+            const [{ initializeApp }, { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged }, { getFirestore, collection, addDoc }] = await Promise.all([
+                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"),
+                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"),
+                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js")
+            ]);
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            const authStatusEl = document.getElementById('auth-status');
+            const statusMessageEl = document.getElementById('status-message');
+            const bookingForm = document.getElementById('booking-form');
+            const showMessage = (message, type = 'success') => {
+                statusMessageEl.textContent = message;
+                statusMessageEl.className = 'message-box show';
+                if (type === 'success') {
+                    statusMessageEl.classList.add('bg-green-500', 'text-white');
+                } else {
+                    statusMessageEl.classList.add('bg-red-500', 'text-white');
+                }
+                setTimeout(() => {
+                    statusMessageEl.classList.remove('show');
+                }, 5000);
+            };
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    authStatusEl.textContent = `Connected as User ID: ${userId}`;
+                } else {
+                    authStatusEl.textContent = 'Connecting...';
+                    try {
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        showMessage("Authentication failed. Please refresh the page.", 'error');
+                    }
+                }
+            });
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!userId) {
+                        showMessage("Connecting to the database. Please try again in a moment.", 'error');
+                        return;
+                    }
+                    const checkIn = document.getElementById('check-in').value;
+                    const checkOut = document.getElementById('check-out').value;
+                    const adults = parseInt(document.getElementById('adults').value, 10);
+                    const children = parseInt(document.getElementById('children').value, 10);
+                    const roomType = document.getElementById('room-type').value;
+                    try {
+                        const bookingsCollectionPath = `/artifacts/${appId}/users/${userId}/bookings`;
+                        const bookingsCollection = collection(db, bookingsCollectionPath);
+                        await addDoc(bookingsCollection, {
+                            checkIn,
+                            checkOut,
+                            adults,
+                            children,
+                            roomType,
+                            bookedAt: new Date().toISOString(),
+                            status: 'pending'
+                        });
+                        showMessage("Your booking request has been sent! We will contact you shortly.");
+                        bookingForm.reset();
+                    } catch (error) {
+                        showMessage("Failed to submit booking. Please check your connection and try again.", 'error');
+                    }
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu toggle logic
+            const mobileMenuBtn = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('show');
+                });
+            }
+            // Handle navigation clicks with smooth scrolling
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('href');
+                    if (targetId && targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                        if (mobileMenu && mobileMenu.classList.contains('show')) {
+                            mobileMenu.classList.remove('show');
+                        }
+                    }
+                });
+            });
+            // Scroll-to-top button logic
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            if (scrollToTopBtn) {
+                const toggleScrollButton = () => {
+                    if (window.scrollY > 300) {
+                        scrollToTopBtn.classList.add('visible');
+                    } else {
+                        scrollToTopBtn.classList.remove('visible');
+                    }
+                };
+                window.addEventListener('scroll', toggleScrollButton);
+                toggleScrollButton();
+                scrollToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            // Lazy-load images for performance
+            document.querySelectorAll('img').forEach(img => {
+                img.setAttribute('loading', 'lazy');
+                img.setAttribute('decoding', 'async');
+            });
+            // Initialize Firebase only if config is present
+            if (firebaseConfig && Object.keys(firebaseConfig).length > 0) {
+                initFirebase();
+            }
+        });
+    </script>
+</body>
+
+</html>
