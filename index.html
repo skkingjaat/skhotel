@@ -540,19 +540,21 @@
                     Book Your Unforgettable Stay
                 </h2>
                 <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl p-6 md:p-12">
-                    <form id="booking-form" class="space-y-6">
+                    <!-- Replace YOUR_FORMSPREE_ID with your actual Formspree form ID -->
+                    <form id="booking-form" class="space-y-6"
+                        action="https://formspree.io/f/xnnbeoag" method="POST">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="check-in" class="block text-sm font-medium text-stone-700 mb-2">Check-in
                                     Date</label>
-                                <input type="date" id="check-in" name="check-in"
+                                <input type="date" id="check-in" name="Check-in Date"
                                     class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
                                     required>
                             </div>
                             <div>
                                 <label for="check-out" class="block text-sm font-medium text-stone-700 mb-2">Check-out
                                     Date</label>
-                                <input type="date" id="check-out" name="check-out"
+                                <input type="date" id="check-out" name="Check-out Date"
                                     class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
                                     required>
                             </div>
@@ -561,21 +563,21 @@
                             <div>
                                 <label for="adults"
                                     class="block text-sm font-medium text-stone-700 mb-2">Adults</label>
-                                <input type="number" id="adults" name="adults" min="1"
+                                <input type="number" id="adults" name="Adults" min="1"
                                     class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
                                     required value="1">
                             </div>
                             <div>
                                 <label for="children"
                                     class="block text-sm font-medium text-stone-700 mb-2">Children</label>
-                                <input type="number" id="children" name="children" min="0"
+                                <input type="number" id="children" name="Children" min="0"
                                     class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
                                     required value="0">
                             </div>
                         </div>
                         <div>
                             <label for="room-type" class="block text-sm font-medium text-stone-700 mb-2">Room Type</label>
-                            <select id="room-type" name="room-type"
+                            <select id="room-type" name="Room Type"
                                 class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
                                 required>
                                 <option value="executive">Executive Suite</option>
@@ -583,10 +585,30 @@
                                 <option value="oceanview">Royal Oceanview</option>
                             </select>
                         </div>
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-stone-700 mb-2">Your Name</label>
+                            <input type="text" id="name" name="Name"
+                                class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-stone-700 mb-2">Your Email</label>
+                            <input type="email" id="email" name="Email"
+                                class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"
+                                required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-stone-700 mb-2">Additional Message</label>
+                            <textarea id="message" name="Message" rows="3"
+                                class="w-full px-4 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-stone-500"></textarea>
+                        </div>
+                        <!-- Spam protection for Formspree -->
+                        <input type="text" name="_gotcha" style="display:none">
                         <button type="submit"
                             class="w-full bg-stone-900 hover:bg-stone-700 text-white font-semibold py-3 md:py-4 px-6 rounded-full transition-colors duration-300 transform hover:-translate-y-1">
                             Check Availability
                         </button>
+                        <p id="form-status" class="text-center text-green-600 font-semibold mt-4 hidden">Thank you! Your booking request has been sent.</p>
                     </form>
                 </div>
             </div>
@@ -648,88 +670,8 @@
         </svg>
     </button>
 
-    <script type="module" defer>
-        // Only run Firebase if config is present
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-        let app, auth, db, userId = null;
-
-        // Lazy-load Firebase only if config is present
-        async function initFirebase() {
-            if (!firebaseConfig || Object.keys(firebaseConfig).length === 0) return;
-            const [{ initializeApp }, { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged }, { getFirestore, collection, addDoc }] = await Promise.all([
-                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"),
-                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"),
-                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js")
-            ]);
-            app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-            const authStatusEl = document.getElementById('auth-status');
-            const statusMessageEl = document.getElementById('status-message');
-            const bookingForm = document.getElementById('booking-form');
-            const showMessage = (message, type = 'success') => {
-                statusMessageEl.textContent = message;
-                statusMessageEl.className = 'message-box show';
-                if (type === 'success') {
-                    statusMessageEl.classList.add('bg-green-500', 'text-white');
-                } else {
-                    statusMessageEl.classList.add('bg-red-500', 'text-white');
-                }
-                setTimeout(() => {
-                    statusMessageEl.classList.remove('show');
-                }, 5000);
-            };
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    authStatusEl.textContent = `Connected as User ID: ${userId}`;
-                } else {
-                    authStatusEl.textContent = 'Connecting...';
-                    try {
-                        if (initialAuthToken) {
-                            await signInWithCustomToken(auth, initialAuthToken);
-                        } else {
-                            await signInAnonymously(auth);
-                        }
-                    } catch (error) {
-                        showMessage("Authentication failed. Please refresh the page.", 'error');
-                    }
-                }
-            });
-            if (bookingForm) {
-                bookingForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    if (!userId) {
-                        showMessage("Connecting to the database. Please try again in a moment.", 'error');
-                        return;
-                    }
-                    const checkIn = document.getElementById('check-in').value;
-                    const checkOut = document.getElementById('check-out').value;
-                    const adults = parseInt(document.getElementById('adults').value, 10);
-                    const children = parseInt(document.getElementById('children').value, 10);
-                    const roomType = document.getElementById('room-type').value;
-                    try {
-                        const bookingsCollectionPath = `/artifacts/${appId}/users/${userId}/bookings`;
-                        const bookingsCollection = collection(db, bookingsCollectionPath);
-                        await addDoc(bookingsCollection, {
-                            checkIn,
-                            checkOut,
-                            adults,
-                            children,
-                            roomType,
-                            bookedAt: new Date().toISOString(),
-                            status: 'pending'
-                        });
-                        showMessage("Your booking request has been sent! We will contact you shortly.");
-                        bookingForm.reset();
-                    } catch (error) {
-                        showMessage("Failed to submit booking. Please check your connection and try again.", 'error');
-                    }
-                });
-            }
-        }
+    
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Mobile menu toggle logic
             const mobileMenuBtn = document.getElementById('menu-button');
@@ -776,9 +718,36 @@
                 img.setAttribute('loading', 'lazy');
                 img.setAttribute('decoding', 'async');
             });
-            // Initialize Firebase only if config is present
-            if (firebaseConfig && Object.keys(firebaseConfig).length > 0) {
-                initFirebase();
+
+            // Formspree booking form handler
+            const form = document.getElementById('booking-form');
+            const status = document.getElementById('form-status');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const data = new FormData(form);
+                    fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    }).then(response => {
+                        if (response.ok) {
+                            form.reset();
+                            status.classList.remove('hidden');
+                            status.textContent = "Thank you! Your booking request has been sent.";
+                        } else {
+                            response.json().then(data => {
+                                status.classList.remove('hidden');
+                                status.textContent = data.error || "Oops! There was a problem submitting your form.";
+                                status.classList.add('text-red-600');
+                            });
+                        }
+                    }).catch(() => {
+                        status.classList.remove('hidden');
+                        status.textContent = "Oops! There was a problem submitting your form.";
+                        status.classList.add('text-red-600');
+                    });
+                });
             }
         });
     </script>
